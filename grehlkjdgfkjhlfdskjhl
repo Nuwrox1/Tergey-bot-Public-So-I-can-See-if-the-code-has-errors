@@ -1,0 +1,26 @@
+
+import os
+import discord
+from discord.ext import commands
+import asyncio
+
+bot = commands.Bot(command_prefix='!')
+
+@bot.event
+async def on_ready():
+    print('Bot is online')
+
+async def tergey_reminder():
+    await bot.wait_until_ready()
+    while not bot.is_closed():
+        channel = bot.get_channel(1075173360390111282) # Replace channel_id with the ID of the channel you want the bot to post in
+        await channel.send('Tergey')
+        await asyncio.sleep(60 * 60 * 5) # 5 hours
+
+@bot.event
+async def on_message(message):
+    if 'tergey' in message.content.lower():
+        await message.channel.send('Did you mean Tergey?')
+
+bot.loop.create_task(tergey_reminder())
+bot.run(os.environ['MTA1NDI1MzQzNDc2MjcwMjg0OA.GwHmJL.Fpg3eCXhSPJS106xIUDHhkL7SbnT43Ih2LFj5s']) # Replace DISCORD_TOKEN with your bot's token
